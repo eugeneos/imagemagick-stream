@@ -226,6 +226,9 @@ ImageMagick.prototype.to = function (path) {
 
 ImageMagick.prototype.spawn = function () {
   var proc = spawn('convert', this.args());
+  proc.on('close', function() {
+    proc.stdout.end();
+  });
 
   var stdout = proc.stdout;
   stdout.on('error', this.onerror);
